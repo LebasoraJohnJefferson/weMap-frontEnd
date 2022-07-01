@@ -1,0 +1,106 @@
+<div class="grid place-content-center gap-y-4" id="form-container">
+  <h3>Sign Up</h3>
+  <div class="grid">
+    <form
+      class="grid grid-row-3 w-96 gap-y-2"
+      [formGroup]="registerUser"
+      (ngSubmit)="onSubmit()"
+    >
+      <p
+        class="text-red-500 text-xs"
+        *ngIf="
+          (firstFormInteraction &&
+            (registerUser.value.lastName == null ||
+              registerUser.value.firstName == null)) ||
+          (registerUser.get('firstName')?.invalid &&
+            registerUser.value.firstName != null &&
+            registerUser.get('lastName')?.invalid &&
+            registerUser.value.lastName != null)
+        "
+      >
+        First name and last name is required
+      </p>
+      <div class="grid grid-cols-2 gap-2">
+        <input
+          placeholder="First Name"
+          formControlName="firstName"
+          type="email"
+          id="my-indent"
+          class="shadow-md placeholder-green-500 rounded py-2"
+          required
+        />
+        <input
+          placeholder="Last Name"
+          formControlName="lastName"
+          type="email"
+          id="my-indent"
+          class="shadow-md placeholder-green-500 rounded py-2"
+          required
+        />
+      </div>
+      <p
+        class="text-red-500 text-xs"
+        *ngIf="
+          (registerUser.get('email')?.invalid &&
+            registerUser.value.email != null) ||
+          (firstFormInteraction && registerUser.value.email == null)
+        "
+      >
+        Invalid Email
+      </p>
+      <input
+        placeholder="Enter Email"
+        formControlName="email"
+        type="email"
+        id="my-indent"
+        class="shadow-md placeholder-green-500 rounded py-2"
+        required
+      />
+      <p
+        class="text-red-500 text-xs"
+        *ngIf="
+          (registerUser.get('password')?.invalid &&
+            registerUser.value.password != null) ||
+          (firstFormInteraction && registerUser.value.password == null)
+        "
+      >
+        password must contain min eight characters, at least one uppercase
+        letter and lowercase letter ,and one number.
+      </p>
+      <input
+        placeholder="Password"
+        formControlName="password"
+        type="password"
+        id="my-indent"
+        class="shadow-md placeholder-green-500 rounded py-2"
+        required
+      />
+      <p
+        class="text-red-500 text-xs"
+        *ngIf="
+          (isPasswordMatch && registerUser.value.confirmPassword != null) ||
+          (firstFormInteraction && registerUser.value.confirmPassword == null)
+        "
+      >
+        Password and confirm password does`nt match
+      </p>
+      <input
+        placeholder="Confirm Password"
+        formControlName="confirmPassword"
+        type="password"
+        id="my-indent"
+        (input)="isMatch()"
+        class="shadow-md placeholder-green-500 rounded py-2"
+        required
+      />
+      <button class="rounded shadow py-3 bg-green-700 text-white">
+        Log In
+      </button>
+    </form>
+    <hr class="w-96 my-3" />
+    <p class="w-96">
+      Already have an account?
+      <a routerLink="/" class="text-blue-700 font-bold">Log in</a>
+    </p>
+  </div>
+</div>
